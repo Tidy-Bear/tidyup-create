@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "package": "me.ctidy.mcmod.create.moderngoggle.mixin",
+  "refmap": "mixins.createmoderngoggle.refmap.json",
+  "mixins": [
+    "LangBuilderMixin"
+  ]
+}

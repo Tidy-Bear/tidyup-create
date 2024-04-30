@@ -7,7 +7,6 @@ modId="${modId}"
 version="${modVersion}"
 displayName="${modName}"
 authors="${authors}"
-logoFile="icon.png"
 description='''
 ${modDescription}
 '''
@@ -17,11 +16,18 @@ ${modDescription}
     mandatory=true
     versionRange="${fmlRequest}"
     ordering="NONE"
-    side="BOTH"
+    side="CLIENT"
 
 [[dependencies."${modId}"]]
     modId="minecraft"
     mandatory=true
     versionRange="${mcRequest}"
     ordering="NONE"
-    side="BOTH"
+    side="CLIENT"
+
+[[dependencies."${modId}"]]
+    modId="create"
+    mandatory=true
+    versionRange="${createRequest}"
+    ordering="NONE"
+    side="CLIENT"
