@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="${loaderVersion}"
+license="${license}"
+
+[[mods]]
+modId="${modId}"
+version="${modVersion}"
+displayName="${modName}"
+authors="${authors}"
+logoFile="icon.png"
+description='''
+${modDescription}
+'''
+
+[[dependencies."${modId}"]]
+    modId="forge"
+    mandatory=true
+    versionRange="${fmlRequest}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies."${modId}"]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${mcRequest}"
+    ordering="NONE"
+    side="BOTH"
