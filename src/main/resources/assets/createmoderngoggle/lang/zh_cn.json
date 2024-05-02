@@ -1,0 +1,7 @@
+{
+  "createmoderngoggle.lang.version": "1.0.0",
+  "createmoderngoggle.config.section.action": "行为设置",
+
+  "createmoderngoggle.config.enabled": "启用",
+  "createmoderngoggle.config.enabled.tooltip": "是否应用对工程师护目镜 hud 的修复。\n[默认值: true]"
+}

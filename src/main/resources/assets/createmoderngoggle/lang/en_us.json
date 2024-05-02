@@ -1,0 +1,7 @@
+{
+  "createmoderngoggle.lang.version": "1.0.0",
+  "createmoderngoggle.config.section.action": "Action Settings",
+
+  "createmoderngoggle.config.enabled": "Enabled",
+  "createmoderngoggle.config.enabled.tooltip": "Whether apply the fix of Engineer's Goggle overlay.\n[Default: true]"
+}
