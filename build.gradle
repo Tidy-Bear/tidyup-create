@@ -189,9 +189,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:${jei_artifact_id}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:${jei_artifact_id}-forge:${jei_version}")
 
-    runtimeOnly fg.deobf("curse.maven:JustEnoughCharacters-250702:${jech_version}")
     runtimeOnly fg.deobf("curse.maven:Jade-324717:${jade_version}")
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
+    runtimeOnly fg.deobf("curse.maven:searchables-858542:${searchables_version}")
     runtimeOnly fg.deobf("curse.maven:configured-457570:${configured_version}")
     runtimeOnly fg.deobf("curse.maven:controlling-250398:${controlling_version}")
     implementation fg.deobf("curse.maven:spark-361579:${spark_version}")
@@ -259,13 +259,13 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks.named('sourcesJar') {
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_name.replaceAll("[^a-zA-Z]", "")}" }
+        rename { "${it}_${mod_name.replaceAll("\\W", "")}" }
     }
 }
 
 tasks.named('jar', Jar) {
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_name.replaceAll("[^a-zA-Z]", "")}" }
+        rename { "${it}_${mod_name.replaceAll("\\W", "")}" }
     }
 
     manifest {

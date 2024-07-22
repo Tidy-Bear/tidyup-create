@@ -6,7 +6,6 @@ import me.ctidy.mcmod.create.tidyspatches.utils.SpaceIndentsUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -37,12 +36,12 @@ public abstract class GoggleOverlayRendererMixin {
         if (SpaceIndentsUtil.isDefaultAdaptedToFont(mc.font)) return tooltip.iterator();
         for (int i = 0; i < tooltip.size(); i++) {
             Component c = tooltip.get(i);
-            String text = c.getContents();
+            String text = c.getString();
             MATCHER.reset(text);
             if (!MATCHER.matches()) continue;
             text = SpaceIndentsUtil.indentsTextAdaptedToFont(mc.font, MATCHER.end(1))
                     + MATCHER.group(2);
-            MutableComponent adjustedComponent = new TextComponent(text).withStyle(c.getStyle());
+            MutableComponent adjustedComponent = Component.literal(text).withStyle(c.getStyle());
             c.getSiblings().forEach(adjustedComponent::append);
             tooltip.set(i, adjustedComponent);
         }
