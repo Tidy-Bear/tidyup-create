@@ -1,36 +1,35 @@
 plugins {
-    id 'eclipse'
-    id 'idea'
+    id 'java-library'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'net.neoforged.gradle' version '6.0.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-group = project.maven_group
-version = "${project.minecraft_version}-${project.mod_version}"
-base {
-    archivesName = project.archives_base_name
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+    // withJavadocJar()
 }
 
-println('Java: ' + System.getProperty('java.version'))
-println('JVM:  ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ')')
-println('Arch: ' + System.getProperty('os.arch'))
-
-println("System Proxies: ${System.getProperty('java.net.useSystemProxies')}")
-println("Proxy HTTP: ${System.getProperty('http.proxyHost')}:${System.getProperty('http.proxyPort')}")
-println("Proxy HTTPS: ${System.getProperty('https.proxyHost')}:${System.getProperty('https.proxyPort')}")
+version = "${minecraft_version}-${mod_version}"
+base {
+    archivesName = project.name
+}
 
 minecraft {
-    // Channel:   Version:
-    // official   MCVersion  Official field/method names from Mojang mapping files
-    // parchment  YYYY.MM.DD-MCVersion  Open community-sourced parameter names and javadocs layered on top of official
+    // Channel   | Version              | Comment
+    // --------- | -------------------- | ---------------
+    // official  | MCVersion            | Official field/method names from Mojang mapping files
+    // parchment | YYYY.MM.DD-MCVersion | Open community-sourced parameter names and javadocs layered on top of official
     //
     // You must be aware of the Mojang license when using the 'official' mappings.
     // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
-    mappings channel: project.mappings_channel, version: project.mappings_version
+    def parchmentmc_mapping_version = "${parchmentmc_version}-${minecraft_version}"
+    if (!parchmentmc_mc_version.equals(minecraft_version)) {
+        parchmentmc_mapping_version = "${parchmentmc_mc_version}-${parchmentmc_mapping_version}"
+    }
+    mappings channel: 'parchment', version: parchmentmc_mapping_version
 
     // Have all Eclipse/IntelliJ IDEA run configurations run the "prepareXXX" task before launching the game.
     // enableEclipsePrepareRuns = true
@@ -45,14 +44,20 @@ minecraft {
     // By default, the folder name of a run configuration is the name of the Gradle project containing it.
     // generateRunFolders = true
 
+    // Automatically enable neoforge AccessTransformers if the file exists
+    // This location is hardcoded in FML and can not be changed.
+    // https://github.com/neoforged/FancyModLoader/blob/a952595eaaddd571fbc53f43847680b00894e0c1/loader/src/main/java/net/neoforged/fml/loading/moddiscovery/ModFile.java#L118
     // https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformer = at
+    }
 
     // makeObfSourceJar = false
 
     runs {
         configureEach {
-            workingDirectory project.file('run')
+            workingDirectory project.file('runs')
 
             // log4j2 bug fix
             property 'log4j2.formatMsgNoLookups', 'true'
@@ -70,25 +75,22 @@ minecraft {
             // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
-            // mixin
-            // property 'mixin.env.disableRefMap', 'true'
-
-            mods {
-                "${project.mod_id}" {
-                    source sourceSets.main
-                }
-            }
+            // mods {
+            //     "${project.mod_id}" {
+            //         source sourceSets.main
+            //     }
+            // }
         }
 
         client {
-            workingDirectory project.file('run/client')
+            workingDirectory project.file('runs/client')
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', project.mod_id
         }
 
         server {
-            workingDirectory project.file('run/server')
-            property 'forge.enabledGameTestNamespaces', "${project.mod_id}"
+            workingDirectory project.file('runs/server')
+            property 'forge.enabledGameTestNamespaces', project.mod_id
             args '-nogui'
         }
 
@@ -96,14 +98,14 @@ minecraft {
         // By default, the server will crash when no gametests are provided.
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
-            workingDirectory project.file('run/gametest')
-            property 'forge.enabledGameTestNamespaces', "${project.mod_id}"
+            workingDirectory project.file('runs/gametest')
+            property 'forge.enabledGameTestNamespaces', project.mod_id
         }
 
         data {
-            workingDirectory project.file('run/data')
+            workingDirectory project.file('runs/data')
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
     }
 }
@@ -112,29 +114,42 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources/' }
 
 repositories {
-    flatDir {
-        dirs 'libs'
+    mavenCentral()
+    // https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Sponge'
+                url = 'https://repo.spongepowered.org/repository/maven-public'
+            }
+        }
+        // includeGroupAndSubGroup has an issue until Gradle 8.7, see https://github.com/gradle/gradle/issues/26569
+        filter { includeGroupByRegex('org\\.spongepowered(?:\\..+)?') }
     }
-    mavenLocal()
-    maven {
-        name 'Tterrag Maven'
-        url 'https://maven.tterrag.com/'
-    }
-    maven {
-        name 'The Illusive C4 Maven'
-        url 'https://maven.theillusivec4.top/'
-    }
-    maven {
-        // mixin
-        name 'spongepowered'
-        url 'https://repo.spongepowered.org/maven'
-    }
+    // buggy with ParchmentMC
+    // exclusiveContent {
+    //     forRepository {
+    //         maven {
+    //             name 'Curse Maven'
+    //             url 'https://cursemaven.com'
+    //         }
+    //     }
+    //     filter { includeGroup('curse.maven') }
+    // }
     maven {
         name 'Curse Maven'
-        url 'https://www.cursemaven.com'
+        url 'https://cursemaven.com'
         content {
             includeGroup 'curse.maven'
         }
+    }
+    maven {
+        name 'Minecraft Forge'
+        url 'https://maven.minecraftforge.net/'
+    }
+    maven {
+        name 'BlameJared'
+        url 'https://maven.blamejared.com'
     }
     maven {
         // location of the maven that hosts JEI files since January 2023
@@ -147,28 +162,28 @@ repositories {
         url 'https://modmaven.k-4u.nl'
     }
     maven {
-        name 'CurseForge'
-        url 'https://minecraft.curseforge.com/api/maven/'
+        // create
+        name 'Tterrag Maven'
+        url 'https://maven.tterrag.com/'
     }
-    mavenCentral()
+    maven {
+        // curios
+        name 'The Illusive C4 Maven'
+        url 'https://maven.theillusivec4.top/'
+    }
 }
 
 dependencies {
+    implementation 'org.jetbrains:annotations:24.1.0'
+
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${forge_version}"
 
-    // Mod dependency from ./libs with a flat dir repository
-    // groupId: blank
-    // Example:
-    // ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-    compileOnly fg.deobf(fileTree(dir: 'libs', include: ['*.jar'], excludes: ['*-sources.jar', '*-local.jar']))
-
     // mixin
-    annotationProcessor "org.spongepowered:mixin:${project.mixin_version}:processor"
-    testAnnotationProcessor "org.spongepowered:mixin:${project.mixin_version}:processor"
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    testAnnotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     compileOnly fg.deobf("mezz.jei:${jei_artifact_id}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:${jei_artifact_id}-forge-api:${jei_version}")
@@ -179,12 +194,11 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
     runtimeOnly fg.deobf("curse.maven:configured-457570:${configured_version}")
     runtimeOnly fg.deobf("curse.maven:controlling-250398:${controlling_version}")
-    runtimeOnly fg.deobf("curse.maven:spark-361579:${spark_version}")
+    implementation fg.deobf("curse.maven:spark-361579:${spark_version}")
     // runtimeOnly fg.deobf("curse.maven:AppleSkin-248787:${appleskin_version}")
     runtimeOnly fg.deobf("curse.maven:XaeroMinimap-263420:${xaerominimap_version}")
     runtimeOnly fg.deobf("curse.maven:XaeroWorldmap-317780:${xaeroworldmap_version}")
     runtimeOnly fg.deobf("curse.maven:ModernUI-352491:${mui_version}")
-
 
     // compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
@@ -194,39 +208,48 @@ dependencies {
 }
 
 mixin {
-    add sourceSets.main, "mixins.${project.mod_id}.refmap.json"
-    config "mixins.${project.mod_id}.json"
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.forge.mixins.json"
 
-    debug.verbose = true
-    debug.export = true
     dumpTargetOnFailure = true
     checks = true
     hotSwap = true
+    debug.verbose = true
+    debug.export = true
 }
 
 // A missing property will result in an error.
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
 tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            'loaderVersion': project.fml_request,
-            'license': project.mod_license,
-            'modId': project.mod_id,
-            'modVersion': version,
-            'modName': project.mod_name,
-            'authors': project.author_name,
-            'modDescription': project.mod_description,
-            'fmlRequest': project.fml_request,
-            'mcRequest': project.minecraft_request,
-            'createRequest': project.create_request,
-            'resourcepackDescription': project.mod_resourcepack_description,
-            'resourcePackFormat': project.mod_resourcepack_format,
-            'dataPackFormat': project.mod_datapack_format
-    ]
-    inputs.properties replaceProperties
+    def expandProps = [
+            'version': version,
+            'group': project.group, //Else we target the task's group.
+            'mod_id': mod_id,
+            'mod_name': mod_name,
+            'description': project.description,
+            'license': license,
+            'credits': credits,
+            'author': author,
+            'resourcepack_format': resourcepack_format,
+            'datapack_format': datapack_format,
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
+            'java_version': java_version,
+            'mixin_version': mixin_version,
+            'minecraft_version': minecraft_version,
+            'forge_version': forge_version,
+
+            'minecraft_request': minecraft_request,
+            'fml_request': fml_request,
+            'forge_request': forge_request,
+
+            'create_request': create_request
+    ]
+
+    filesMatching(['pack.mcmeta', '*.mixins.json', 'META-INF/mods.toml']) {
+        expand expandProps
     }
+
+    inputs.properties expandProps
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -234,18 +257,28 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// Example for how to get properties into the manifest for reading by the runtime..
-tasks.named('jar', Jar).configure {
+tasks.named('sourcesJar') {
+    from(rootProject.file("LICENSE")) {
+        rename { "${it}_${mod_name.replaceAll("[^a-zA-Z]", "")}" }
+    }
+}
+
+tasks.named('jar', Jar) {
+    from(rootProject.file("LICENSE")) {
+        rename { "${it}_${mod_name.replaceAll("[^a-zA-Z]", "")}" }
+    }
+
     manifest {
         attributes([
-                "Specification-Title": project.mod_id,
-                "Specification-Vendor": author_name,
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": project.jar.archiveVersion,
-                "Implementation-Vendor" : author_name,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": "mixins.${project.mod_id}.json"
+                'Specification-Title'   : mod_name,
+                'Specification-Vendor'  : author,
+                'Specification-Version' : '1', // We are version 1 of ourselves
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.jar.archiveVersion,
+                'Implementation-Vendor' : author,
+                'Built-On-Minecraft'    : minecraft_version,
+                'Implementation-Timestamp': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'),
+                'MixinConfigs': "${mod_id}.forge.mixins.json"
         ])
     }
 
@@ -257,14 +290,21 @@ tasks.named('jar', Jar).configure {
 //     dependsOn 'reobfJar'
 // }
 
+// manually register missing 'idePostSync' task in MC [,1.20.6)
+tasks.register('idePostSync', {
+    dependsOn genIntellijRuns
+})
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifact jar
+            artifactId base.archivesName.get()
+            from components.java
         }
     }
     repositories {
         maven {
+            // url System.getenv("local_maven_url")
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
