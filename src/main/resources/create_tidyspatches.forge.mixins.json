@@ -6,7 +6,8 @@
   "refmap": "${mod_id}.refmap.json",
   "mixins": [],
   "client": [
-    "GoggleOverlayRendererMixin"
+    "GoggleOverlayRendererMixin",
+    "SchematicHandlerMixin"
   ],
   "server": [],
   "injectors": {

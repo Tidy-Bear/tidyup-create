@@ -6,12 +6,15 @@ import me.ctidy.mcmod.create.tidyspatches.utils.SpaceIndentsUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,13 +39,21 @@ public abstract class GoggleOverlayRendererMixin {
         if (SpaceIndentsUtil.isDefaultAdaptedToFont(mc.font)) return tooltip.iterator();
         for (int i = 0; i < tooltip.size(); i++) {
             Component c = tooltip.get(i);
-            String text = c.getString();
-            MATCHER.reset(text);
-            if (!MATCHER.matches()) continue;
-            text = SpaceIndentsUtil.indentsTextAdaptedToFont(mc.font, MATCHER.end(1))
-                    + MATCHER.group(2);
-            MutableComponent adjustedComponent = Component.literal(text).withStyle(c.getStyle());
-            c.getSiblings().forEach(adjustedComponent::append);
+            MutableComponent adjustedComponent = Component.empty().withStyle(c.getStyle());
+            AtomicBoolean needMatch = new AtomicBoolean(true);
+            c.visit((style, content) -> {
+                if (content.isEmpty()) return Optional.empty();
+                if (needMatch.get()) {
+                    MATCHER.reset(content);
+                    if (MATCHER.matches()) {
+                        needMatch.set(false);
+                        content = SpaceIndentsUtil.indentsTextAdaptedToFont(mc.font, MATCHER.end(1))
+                                + MATCHER.group(2);
+                    }
+                }
+                adjustedComponent.append(Component.literal(content).withStyle(style));
+                return Optional.empty();
+            }, Style.EMPTY);
             tooltip.set(i, adjustedComponent);
         }
         return tooltip.iterator();
