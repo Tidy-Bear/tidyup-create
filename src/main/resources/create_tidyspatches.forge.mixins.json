@@ -6,8 +6,13 @@
   "refmap": "${mod_id}.refmap.json",
   "mixins": [],
   "client": [
-    "GoggleOverlayRendererMixin",
-    "SchematicHandlerMixin"
+    "schematic_preview.SchematicHandlerMixin",
+    "space_indents.GoggleOverlayRendererMixin",
+    "space_indents.IDisplayAssemblyExceptionsMixin",
+    "space_indents.LangBuilderMixin",
+    "space_indents.LegacySpacingComponentMixin",
+    "space_indents.LegacySpacingComponentStaticMixin",
+    "space_indents.LegacySpacingMixin"
   ],
   "server": [],
   "injectors": {

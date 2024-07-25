@@ -1,4 +1,4 @@
-package me.ctidy.mcmod.create.moderngoggle.mixin;
+package me.ctidy.mcmod.create.tidyspatches.mixin.schematic_preview;
 
 import com.simibubi.create.content.schematics.client.SchematicHandler;
 import com.simibubi.create.content.schematics.client.SchematicRenderer;

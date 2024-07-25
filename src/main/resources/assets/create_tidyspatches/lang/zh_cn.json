@@ -2,6 +2,6 @@
   "createmoderngoggle.lang.version": "1.0.0",
   "createmoderngoggle.config.section.action": "行为设置",
 
-  "createmoderngoggle.config.enabled": "启用",
-  "createmoderngoggle.config.enabled.tooltip": "是否应用对工程师护目镜 hud 的修复。\n[默认值: true]"
+  "createmoderngoggle.config.space_indents_universal_fix": "空格缩进通用修复",
+  "createmoderngoggle.config.space_indents_universal_fix.tooltip": "是否为工程师护目镜 hud 的空格缩进应用通用修复。只有在默认修复仍有遗漏的情况下再启用。\n[默认值: false]"
 }

@@ -18,7 +18,7 @@ public class ClientConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ClientConfig INSTANCE;
 
-    public final ForgeConfigSpec.BooleanValue enabled;
+    public final ForgeConfigSpec.BooleanValue spaceIndentsUniversalFix;
 
     static {
         Config.setInsertionOrderPreserved(true);
@@ -42,10 +42,10 @@ public class ClientConfig {
     public ClientConfig(ForgeConfigSpec.Builder builder) {
         builder.push("action").translation(sectionTKey("action"));
 
-        enabled = builder.comment("Whether apply the fix of Engineer's Goggle overlay",
-                        "[Default: true]")
-                .translation(nameTKey("enabled"))
-                .define("enabled", true);
+        spaceIndentsUniversalFix = builder.comment("Whether apply a universal fix of space indents at Engineer's Goggle overlay. Only enable when something still looks incorrect.",
+                        "[Default: false]")
+                .translation(nameTKey("space_indents_universal_fix"))
+                .define("enabled", false);
 
         builder.pop();
     }

@@ -2,6 +2,6 @@
   "createmoderngoggle.lang.version": "1.0.0",
   "createmoderngoggle.config.section.action": "Action Settings",
 
-  "createmoderngoggle.config.enabled": "Enabled",
-  "createmoderngoggle.config.enabled.tooltip": "Whether apply the fix of Engineer's Goggle overlay.\n[Default: true]"
+  "createmoderngoggle.config.space_indents_universal_fix": "Space indents universal fix",
+  "createmoderngoggle.config.space_indents_universal_fix.tooltip": "Whether apply a universal fix of space indents at Engineer's Goggle overlay. Only enable when something still looks incorrect.\n[Default: false]"
 }
