@@ -143,6 +143,26 @@ repositories {
             includeGroup 'curse.maven'
         }
     }
+    // buggy with ParchmentMC
+    // exclusiveContent {
+    //     forRepository {
+    //         maven {
+    //             name 'Modrinth'
+    //             url 'https://api.modrinth.com/maven'
+    //         }
+    //     }
+    //     // forRepositories(fg.repository)
+    //     filter {
+    //         includeGroup 'maven.modrinth'
+    //     }
+    // }
+    maven {
+        name 'Modrinth'
+        url 'https://api.modrinth.com/maven'
+        content {
+            includeGroup 'maven.modrinth'
+        }
+    }
     maven {
         name 'Minecraft Forge'
         url 'https://maven.minecraftforge.net/'
@@ -170,6 +190,16 @@ repositories {
         // curios
         name 'The Illusive C4 Maven'
         url 'https://maven.theillusivec4.top/'
+    }
+    maven {
+        // Copycats+
+        name = "realrobotixCopycats"
+        url = "https://maven.realrobotix.me/copycats"
+    }
+    maven {
+        // DragonsPlus Lib (for CEI and CCK)
+        name 'DragonsPlus Maven'
+        url 'https://maven.dragons.plus/releases'
     }
 }
 
@@ -205,6 +235,24 @@ dependencies {
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    compileOnly fg.deobf("plus.dragons.createdragonlib:create_dragon_lib-${create_dragon_lib_minecraft_version}:${create_dragon_lib_version}")
+
+    implementation fg.deobf("com.copycatsplus:copycats:${copycats_version}+mc.${copycats_minecraft_version}-forge")
+
+    implementation fg.deobf("curse.maven:CreateDeco-509285:${createdeco_version}")
+    implementation fg.deobf("curse.maven:CreateInteriors-906239:${createinteriors_version}")
+    implementation fg.deobf("curse.maven:CreateAddition-439890:${createaddition_version}")
+    implementation fg.deobf("curse.maven:CreateStuffAddition-466792:${createstuffaddition_version}")
+    implementation fg.deobf("curse.maven:CreateMiscThings-652202:${createmiscthings_version}")
+    implementation fg.deobf("maven.modrinth:JmybsfWs:${createdreamsdesires_version}")  // Create Dreams & Desires
+    implementation fg.deobf("curse.maven:CreateConnected-947914:${createconnected_version}")
+    implementation fg.deobf("curse.maven:CreateOreExcavation-649832:${createoreexcavation_version}")
+    implementation fg.deobf("curse.maven:CreateGuardianBeamDefense-860168:${createguardianbeamdefense_version}")
+    implementation fg.deobf("curse.maven:CreateEnderTransmission-737302:${createendertransmission_version}")
+    implementation fg.deobf("curse.maven:CreateEnchantmentIndustry-688768:${createenchantmentindustry_version}")
+    implementation fg.deobf("curse.maven:CreateCentralKitchen-820977:${createcentralkitchen_version}")
+    implementation fg.deobf("curse.maven:FarmersDelight-398521:${farmersdelight_version}")  // required by CCK (above)
 }
 
 mixin {

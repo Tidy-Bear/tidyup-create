@@ -23,7 +23,7 @@ import java.util.Vector;
  * @since 2024/7/22
  */
 @Mixin(value = SchematicHandler.class, remap = false)
-public class SchematicHandlerMixin {
+public abstract class SchematicHandlerMixin {
 
     @Shadow private ItemStack activeSchematicItem;
 

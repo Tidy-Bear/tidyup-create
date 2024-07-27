@@ -2,7 +2,7 @@ package me.ctidy.mcmod.create.tidyspatches.mixin.space_indents;
 
 import com.simibubi.create.content.equipment.goggles.GoggleOverlayRenderer;
 import me.ctidy.mcmod.create.tidyspatches.config.ClientConfig;
-import me.ctidy.mcmod.create.tidyspatches.space_indents.SpaceIndentsManager;
+import me.ctidy.mcmod.create.tidyspatches.space_indents.SpaceIndentsUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -33,35 +33,22 @@ public abstract class GoggleOverlayRendererMixin {
         for (int i = 0; i < tooltip.size(); i++) {
             Component c = tooltip.get(i);
             MutableComponent adjustedComponent = Component.empty().withStyle(c.getStyle());
-            MutableBoolean hasMatched = new MutableBoolean();
+            MutableBoolean reachFirstNonSpace = new MutableBoolean();
             c.visit((style, content) -> {
                 if (content.isEmpty()) return Optional.empty();
-                content = contentWithScaledSpaceIndents(content, hasMatched, style);
-                adjustedComponent.append(Component.literal(content).withStyle(style));
+                if (reachFirstNonSpace.isTrue()) {
+                    adjustedComponent.append(Component.literal(content).withStyle(style));
+                    return Optional.empty();
+                }
+                adjustedComponent.append(SpaceIndentsUtil.componentWithScaledSpaceIndents(content, style));
+                if (SpaceIndentsUtil.indexOfNonSpace(content) < content.length() - 1) {
+                    reachFirstNonSpace.setTrue();
+                }
                 return Optional.empty();
             }, Style.EMPTY);
             tooltip.set(i, adjustedComponent);
         }
         return tooltip.iterator();
-    }
-
-    private static String contentWithScaledSpaceIndents(String content, MutableBoolean hasMatched, Style style) {
-        if (hasMatched.isTrue() || content.charAt(0) != ' ') {
-            return content;
-        }
-        hasMatched.setTrue();
-        int i = 1;
-        int length = content.length();
-        while (i < length) {
-            if (content.charAt(i) != ' ') {
-                break;
-            }
-            i++;
-        }
-        if (i > length) {
-            return SpaceIndentsManager.scaledSpaceIndents(length, style);
-        }
-        return SpaceIndentsManager.scaledSpaceIndents(length, style) + content.substring(i);
     }
 
 }
