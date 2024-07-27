@@ -1,8 +1,8 @@
-package me.ctidy.mcmod.create.moderngoggle.mixin;
+package me.ctidy.mcmod.create.tidyspatches.mixin;
 
 import com.simibubi.create.content.equipment.goggles.GoggleOverlayRenderer;
-import me.ctidy.mcmod.create.moderngoggle.config.ClientConfig;
-import me.ctidy.mcmod.create.moderngoggle.utils.SpaceIndentsUtil;
+import me.ctidy.mcmod.create.tidyspatches.config.ClientConfig;
+import me.ctidy.mcmod.create.tidyspatches.utils.SpaceIndentsUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;

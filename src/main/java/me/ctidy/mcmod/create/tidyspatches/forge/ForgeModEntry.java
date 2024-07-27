@@ -1,8 +1,8 @@
-package me.ctidy.mcmod.create.moderngoggle.forge;
+package me.ctidy.mcmod.create.tidyspatches.forge;
 
-import me.ctidy.mcmod.create.moderngoggle.ModEnvConstants;
-import me.ctidy.mcmod.create.moderngoggle.config.ClientConfig;
-import me.ctidy.mcmod.create.moderngoggle.utils.SpaceIndentsUtil;
+import me.ctidy.mcmod.create.tidyspatches.ModEnvConstants;
+import me.ctidy.mcmod.create.tidyspatches.config.ClientConfig;
+import me.ctidy.mcmod.create.tidyspatches.utils.SpaceIndentsUtil;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.MinecraftForge;

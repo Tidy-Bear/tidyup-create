@@ -1,5 +1,5 @@
 # 机械动力 - 现代护目镜 （Create - Modern Goggle）
-修复 Create 与 Modern UI 共同安装时 工程师护目镜 hud 渲染错位的问题。
+Tidy 的 Create 补丁模组，主要涉及最新版本中没有（或尚未发布）的一些修复。
 
 **相关链接：**
 

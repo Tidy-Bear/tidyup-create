@@ -1,7 +1,7 @@
-package me.ctidy.mcmod.create.moderngoggle.mixin;
+package me.ctidy.mcmod.create.tidyspatches.mixin;
 
 import com.simibubi.create.foundation.utility.LangBuilder;
-import me.ctidy.mcmod.create.moderngoggle.utils.SpaceIndentsUtil;
+import me.ctidy.mcmod.create.tidyspatches.utils.SpaceIndentsUtil;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

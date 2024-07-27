@@ -1,5 +1,5 @@
 # Create Modern Goggle
-Make create’s overlay of Engineer‘s Goggle look more compatible with Modern UI.
+Tidy's patches mod for Create, mainly involving some fixes not available on the latest release.
 
 **Related links:**
 

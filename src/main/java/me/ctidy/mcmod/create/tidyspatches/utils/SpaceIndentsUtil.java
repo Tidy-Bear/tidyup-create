@@ -1,11 +1,11 @@
-package me.ctidy.mcmod.create.moderngoggle.utils;
+package me.ctidy.mcmod.create.tidyspatches.utils;
 
 import joptsimple.internal.Strings;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.Mth;
 
 /**
- * IndentsUtil
+ * SpaceIndentsUtil
  *
  * @author ctidy
  * @since 2024/5/2

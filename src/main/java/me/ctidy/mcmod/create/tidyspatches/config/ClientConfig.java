@@ -1,7 +1,7 @@
-package me.ctidy.mcmod.create.moderngoggle.config;
+package me.ctidy.mcmod.create.tidyspatches.config;
 
 import com.electronwill.nightconfig.core.Config;
-import me.ctidy.mcmod.create.moderngoggle.ModEnvConstants;
+import me.ctidy.mcmod.create.tidyspatches.ModEnvConstants;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
