@@ -25,7 +25,7 @@ Tidy 的 Create 补丁模组，主要涉及最新版本中没有（或尚未发�
 - Create Enchantment Industry （机械动力：附魔工业）
 - Create Ore Excavation （机械动力：矿石开掘）
 
-These mods have been reviewed. There's no need to do anything extra:
+这些 mod 已经审查过，无需进行额外适配：
 - Create: Connected （机械动力：创意传动）
 - Create: Copycats+ （更多伪装板！）
 - Create: Ender Transmission （机械动力：末影传输）
@@ -39,7 +39,7 @@ These mods have been reviewed. There's no need to do anything extra:
 假如仍然有没覆盖到的地方，可以尝试在配置文件中启用通用修复（config/craete_tidyspatches-client.toml）。
 这项配置默认是关闭的，以节省内存与耗时。
 
-**Related links:**
+**相关链接：**
 
 https://github.com/BloCamLimb/ModernUI/issues/172
 
@@ -57,7 +57,7 @@ https://github.com/Creators-of-Create/Create/pull/6477
 
 这个补丁做了同样的事情，但用了与 Create 官方不同的做法。
 
-**Related links:**
+**相关链接：**
 
 https://github.com/Creators-of-Create/Create/issues/6195
 
@@ -67,13 +67,30 @@ https://github.com/Creators-of-Create/Create/pull/6673
 
 **仅客户端**
 
-修复了一个潜在 bug：切换到另一个未部署的蓝图物品后，上一份已部署的蓝图仍然会显示在坐标 (0, 0, 0) 处。
+bug 修复：切换到另一个未部署的蓝图物品后，上一份已部署的蓝图仍然会显示在坐标 (0, 0, 0) 处。
 
-尚未修复甚至提出过。
+**相关链接：**
+
+https://github.com/Creators-of-Create/Create/issues/6784
 
 ### # 改善：蓝图的 tooltip 上显示结构的尺寸大小
 
 **仅客户端**
 
 现在你可以在蓝图的 tooltip 上查看结构的尺寸大小（x, y, z）了。
+
+### # 修复：存量转信器无法准确计算比原版更大的存量上限
+
+**仅服务端**
+
+让 存量转信器 在计算可用存量时能够正确识别比原版更大的存量上限。
+
+在 Create 仓库中已修复，但尚未发布。
+核心代码来自 [Creators-of-Create/Create@d9198f67](https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb)，作者 [zelophed](https://github.com/zelophed).
+
+**相关链接：**
+
+https://github.com/Creators-of-Create/Create/issues/5185
+
+https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb
 

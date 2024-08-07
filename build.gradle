@@ -270,6 +270,8 @@ dependencies {
     runtimeOnly "thedarkcolour:kotlinforforge:${kff_version}"
 
     runtimeOnly fg.deobf("curse.maven:ModernUI-352491:${mui_version}")
+    runtimeOnly fg.deobf("curse.maven:titanium-287342:${titanium_version}")  // required by functional storage (below)
+    runtimeOnly fg.deobf("curse.maven:FunctionalStorage-556861:${functionalstorage_version}")
 
     // compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")

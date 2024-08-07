@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_${java_version}",
   "package": "me.ctidy.mcmod.create.tidyspatches.mixin",
   "refmap": "${mod_id}.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "thresholdSwitch_compat.ThresholdSwitchBlockEntityMixin"
+  ],
   "client": [
     "schematic_better_tooltips.SchematicItemMixin",
     "schematic_preview.SchematicHandlerMixin",

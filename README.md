@@ -80,3 +80,18 @@ https://github.com/Creators-of-Create/Create/issues/6784
 
 Now you can see the structure size (x, y, z) of the schematic on its tooltip.
 
+### # Fix: Threshold Switch Calculates Wrong Slot Size Limit Higher than Vanilla
+
+**Server side only.**
+
+Make Threshold Switch take into account slot size limit higher than vanilla when calculating available space in a container.
+
+It has been fixed in Create's repo but has not been released yet.
+Main codes come from [Creators-of-Create/Create@d9198f67](https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb) by [zelophed](https://github.com/zelophed).
+
+**Related links:**
+
+https://github.com/Creators-of-Create/Create/issues/5185
+
+https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb
+
