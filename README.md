@@ -70,4 +70,13 @@ https://github.com/Creators-of-Create/Create/pull/6673
 
 Fix a bug that previous deployed preview was still rendering at position (0, 0, 0) after switching to another un-deployed schematic item.
 
-Not been fixed or even issued.
+**Related links:**
+
+https://github.com/Creators-of-Create/Create/issues/6784
+
+### # Enhancement: Display Structure Size of Schematic on Tooltip
+
+**Client side only.**
+
+Now you can see the structure size (x, y, z) of the schematic on its tooltip.
+

@@ -6,6 +6,7 @@
   "refmap": "${mod_id}.refmap.json",
   "mixins": [],
   "client": [
+    "schematic_better_tooltips.SchematicItemMixin",
     "schematic_preview.SchematicHandlerMixin",
     "space_indents.GoggleOverlayRendererMixin",
     "space_indents.IDisplayAssemblyExceptionsMixin",
