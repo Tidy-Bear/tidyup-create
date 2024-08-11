@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Mixin(value = SchematicItem.class, remap = false)
 public abstract class SchematicItemMixin {
 
-    @Inject(method = "appendHoverText", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 0, shift = At.Shift.AFTER))
+    @Inject(method = "appendHoverText", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 0, shift = At.Shift.AFTER, remap = false), remap = true)
     private void appendMoreInfoIntoTooltip(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag, CallbackInfo ci) {
         CompoundTag tag = stack.getTag();
         //noinspection ConstantConditions
