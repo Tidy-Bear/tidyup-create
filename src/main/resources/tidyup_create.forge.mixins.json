@@ -1,0 +1,33 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_${java_version}",
+  "package": "me.ctidy.mcmod.tidyup.create.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "mixins": [
+    "thresholdSwitch_compat.ThresholdSwitchBlockEntityMixin"
+  ],
+  "client": [
+    "schematic_better_tooltips.SchematicItemMixin",
+    "schematic_preview.SchematicHandlerMixin",
+    "space_indents.GoggleOverlayRendererMixin",
+    "space_indents.IDisplayAssemblyExceptionsMixin",
+    "space_indents.LangBuilderMixin",
+    "space_indents.LegacySpacingComponentMixin",
+    "space_indents.LegacySpacingComponentStaticMixin",
+    "space_indents.LegacySpacingMixin",
+    "space_indents.TooltipHelperMixin",
+    "space_indents.compat.create_central_kitchen.BlazeStoveGuideItemMixin",
+    "space_indents.compat.create_dd.LegacySpacingComponentMixin",
+    "space_indents.compat.create_dragon_lib.LangBuilderMixin",
+    "space_indents.compat.create_enchantment_industry.LegacySpacingMixin",
+    "space_indents.compat.createaddition.EnergyUsageLegacySpacingMixin",
+    "space_indents.compat.createaddition.LegacySpacingMixin",
+    "space_indents.compat.createoreexcavation.LegacySpacingComponentMixin",
+    "space_indents.compat.createoreexcavation.LegacySpacingMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

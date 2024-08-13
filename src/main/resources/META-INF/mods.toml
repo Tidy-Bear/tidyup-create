@@ -1,43 +1,35 @@
-modLoader = "javafml" #mandatory
-loaderVersion = "${fml_request}" #mandatory
+modLoader="javafml"
+loaderVersion="${fml_request}"
 
-license = "${license}" # Review your options at https://choosealicense.com/.
-issueTrackerURL="https://github.com/Tidy-Bear/CreateTidysPatches/issues"
+license="${license}"
+issueTrackerURL="https://github.com/Tidy-Bear/tidyup-create/issues"
 
-[[mods]] #mandatory
-modId="${mod_id}" #mandatory
-version="${version}" #mandatory
-displayName="${mod_name}" #mandatory
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional (see https://docs.neoforged.net/docs/misc/updatechecker/)
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional (displayed in the mod UI)
-logoFile="${mod_id}.png" #optional
-credits="${credits}" #optional
-authors="${author}" #optional
-description='''${description}''' #mandatory (Supports multiline text)
+[[mods]]
+modId="${mod_id}"
+version="${version}"
+displayName="${mod_name}"
+logoFile="${mod_id}.png"
+credits="${credits}"
+authors="${author}"
+description='''${description}'''
 
-[[dependencies.${mod_id}]] #optional
-modId="forge" #mandatory
+[[dependencies.${mod_id}]]
+modId="forge"
 mandatory=true
-versionRange="${forge_request}" #mandatory
-ordering="NONE" # The order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
-side="CLIENT" # Side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
+versionRange="${forge_request}"
+ordering="NONE"
+side="BOTH"  ## depends on features, can be safely applied on client only or server only.
 
 [[dependencies.${mod_id}]]
 modId="minecraft"
 mandatory=true
 versionRange="${minecraft_request}"
 ordering="NONE"
-side="CLIENT"
+side="BOTH"  ## depends on features, can be safely applied on client only or server only.
 
 [[dependencies.${mod_id}]]
 modId="create"
 mandatory=true
 versionRange="${create_request}"
 ordering="NONE"
-side="CLIENT"
-
-# Features are specific properties of the game environment, that you may want to declare you require. This example declares
-# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
-# stop your mod loading on the server for example.
-#[features.${mod_id}]
-#openGLVersion="[3.2,)"
+side="BOTH"  ## depends on features, can be safely applied on client only or server only.

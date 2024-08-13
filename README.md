@@ -1,5 +1,5 @@
-# Create: Tidy's Patches
-Tidy's patches mod for Create, mainly involving some fixes not available on the latest release.
+# Tidy UP: Create
+Tidy's patches mod for Create and its common addon mods, mainly involving some fixes not available on the latest release.
 
 ## Features
 
@@ -73,6 +73,8 @@ Fix a bug that previous deployed preview was still rendering at position (0, 0, 
 **Related links:**
 
 https://github.com/Creators-of-Create/Create/issues/6784
+
+https://github.com/Creators-of-Create/Create/pull/6813
 
 ### # Enhancement: Display Structure Size of Schematic on Tooltip
 

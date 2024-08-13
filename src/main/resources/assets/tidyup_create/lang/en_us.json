@@ -1,0 +1,7 @@
+{
+  "tidyup_create.lang.version": "1.2.0",
+  "tidyup_create.config.section.action": "Action Settings",
+
+  "tidyup_create.config.space_indents_universal_fix": "Space indents universal fix",
+  "tidyup_create.config.space_indents_universal_fix.tooltip": "Whether apply a universal fix of space indents at Engineer's Goggle overlay. Only enable when something still looks incorrect.\n[Default: false]"
+}

@@ -127,6 +127,12 @@ configurations {
     devCompileClasspath.extendsFrom compileClasspath
 }
 
+// /////////////////////////////
+// ////////// CAUTION //////////
+// /////////////////////////////
+// Based on the operating mode of the ParchmentMC plugin,
+// repositories containing dependencies requiring deobfuscation cannot be declared as exclusive.
+// Just using content filter instead.
 repositories {
     mavenCentral()
     // https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository
@@ -137,19 +143,9 @@ repositories {
                 url 'https://repo.spongepowered.org/repository/maven-public'
             }
         }
-        // includeGroupAndSubGroup has an issue until Gradle 8.7, see https://github.com/gradle/gradle/issues/26569
+        // includeGroupAndSubgroups has an issue until Gradle 8.7, see https://github.com/gradle/gradle/issues/26569
         filter { includeGroupByRegex('org\\.spongepowered(?:\\..+)?') }
     }
-    // buggy with ParchmentMC
-    // exclusiveContent {
-    //     forRepository {
-    //         maven {
-    //             name 'Curse Maven'
-    //             url 'https://cursemaven.com'
-    //         }
-    //     }
-    //     filter { includeGroup('curse.maven') }
-    // }
     maven {
         name 'Curse Maven'
         url 'https://cursemaven.com'
@@ -157,19 +153,6 @@ repositories {
             includeGroup 'curse.maven'
         }
     }
-    // buggy with ParchmentMC
-    // exclusiveContent {
-    //     forRepository {
-    //         maven {
-    //             name 'Modrinth'
-    //             url 'https://api.modrinth.com/maven'
-    //         }
-    //     }
-    //     // forRepositories(fg.repository)
-    //     filter {
-    //         includeGroup 'maven.modrinth'
-    //     }
-    // }
     maven {
         name 'Modrinth'
         url 'https://api.modrinth.com/maven'
@@ -270,8 +253,8 @@ dependencies {
     runtimeOnly "thedarkcolour:kotlinforforge:${kff_version}"
 
     runtimeOnly fg.deobf("curse.maven:ModernUI-352491:${mui_version}")
-    runtimeOnly fg.deobf("curse.maven:titanium-287342:${titanium_version}")  // required by functional storage (below)
-    runtimeOnly fg.deobf("curse.maven:FunctionalStorage-556861:${functionalstorage_version}")
+    implementation fg.deobf("curse.maven:titanium-287342:${titanium_version}")  // required by functional storage (below)
+    implementation fg.deobf("curse.maven:FunctionalStorage-556861:${functionalstorage_version}")
 
     // compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
@@ -372,18 +355,18 @@ tasks.named('compileDevJava', JavaCompile).configure {
 
 tasks.named('sourcesJar') {
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_name.replaceAll("\\W", "")}" }
+        rename { "${it}_$archives_base_name" }
     }
 }
 
 tasks.named('jar', Jar) {
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_name.replaceAll("\\W", "")}" }
+        rename { "${it}_$archives_base_name" }
     }
 
     manifest {
         attributes([
-                'Specification-Title'   : mod_name,
+                'Specification-Title'   : archives_base_name,
                 'Specification-Vendor'  : author,
                 'Specification-Version' : '1', // We are version 1 of ourselves
                 'Implementation-Title'  : project.name,

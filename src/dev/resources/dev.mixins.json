@@ -2,10 +2,10 @@
   "required": true,
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_${java_version}",
-  "package": "me.ctidy.mcmod.create.tidyspatches.mixin.debug",
+  "package": "me.ctidy.mcmod.tidyup.create.mixin.debug",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
-    "mod_compat.railways.RailwaysMixin"
+    "compat.railways.RailwaysMixin"
   ],
   "client": [],
   "server": [],
