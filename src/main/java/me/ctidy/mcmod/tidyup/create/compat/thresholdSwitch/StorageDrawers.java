@@ -32,24 +32,24 @@ import net.minecraftforge.items.IItemHandler;
  */
 public class StorageDrawers implements ThresholdSwitchCompat {
 
-	@Override
-	public boolean isFromThisMod(BlockEntity be) {
-		if (be == null)
-			return false;
+    @Override
+    public boolean isFromThisMod(BlockEntity be) {
+        if (be == null)
+            return false;
 
-		ResourceLocation key = BlockEntityType.getKey(be.getType());
-		if (key == null)
-			return false;
+        ResourceLocation key = BlockEntityType.getKey(be.getType());
+        if (key == null)
+            return false;
 
-		return Mods.STORAGEDRAWERS.id().equals(key.getNamespace());
-	}
+        return Mods.STORAGEDRAWERS.id().equals(key.getNamespace());
+    }
 
-	@Override
-	public long getSpaceInSlot(IItemHandler inv, int slot) {
-		if (slot == 0)
-			return 0;
+    @Override
+    public long getSpaceInSlot(IItemHandler inv, int slot) {
+        if (slot == 0)
+            return 0;
 
-		return inv.getSlotLimit(slot);
-	}
+        return inv.getSlotLimit(slot);
+    }
 
 }

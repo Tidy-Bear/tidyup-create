@@ -19,11 +19,15 @@
 
 package me.ctidy.mcmod.tidyup.create.compat.thresholdSwitch;
 
+import com.buuz135.functionalstorage.inventory.CompactingInventoryHandler;
+import com.buuz135.functionalstorage.util.CompactingUtil;
 import me.ctidy.mcmod.tidyup.create.compat.Mods;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.items.IItemHandler;
+
+import java.util.List;
 
 /**
  * <h1>FunctionalStorage</h1>
@@ -32,21 +36,36 @@ import net.minecraftforge.items.IItemHandler;
  */
 public class FunctionalStorage implements ThresholdSwitchCompat {
 
-	@Override
-	public boolean isFromThisMod(BlockEntity be) {
-		if (be == null)
-			return false;
+    public static boolean isInvalidSlot(CompactingInventoryHandler compact, int slot) {
+        List<CompactingUtil.Result> results = compact.getResultList();
+        if (slot < 0 || slot >= results.size()) {
+            return true;
+        }
+        if (!compact.isSetup()) {
+            // assumes the first slot is the only valid slot of an empty drawer
+            return slot > 0;
+        }
+        return results.get(slot).getResult().isEmpty();
+    }
 
-		ResourceLocation key = BlockEntityType.getKey(be.getType());
-		if (key == null)
-			return false;
+    @Override
+    public boolean isFromThisMod(BlockEntity be) {
+        if (be == null)
+            return false;
 
-		return Mods.FUNCTIONALSTORAGE.id().equals(key.getNamespace());
-	}
+        ResourceLocation key = BlockEntityType.getKey(be.getType());
+        if (key == null)
+            return false;
 
-	@Override
-	public long getSpaceInSlot(IItemHandler inv, int slot) {
-		return inv.getSlotLimit(slot);
-	}
+        return Mods.FUNCTIONALSTORAGE.id().equals(key.getNamespace());
+    }
+
+    @Override
+    public long getSpaceInSlot(IItemHandler inv, int slot) {
+        if (inv instanceof CompactingInventoryHandler compact && isInvalidSlot(compact, slot)) {
+            return 0;
+        }
+        return inv.getSlotLimit(slot);
+    }
 
 }

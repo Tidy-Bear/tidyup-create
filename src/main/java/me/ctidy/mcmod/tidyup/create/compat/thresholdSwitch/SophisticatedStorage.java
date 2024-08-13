@@ -32,23 +32,23 @@ import net.minecraftforge.items.IItemHandler;
  */
 public class SophisticatedStorage implements ThresholdSwitchCompat {
 
-	@Override
-	public boolean isFromThisMod(BlockEntity be) {
-		if (be == null)
-			return false;
+    @Override
+    public boolean isFromThisMod(BlockEntity be) {
+        if (be == null)
+            return false;
 
-		ResourceLocation key = BlockEntityType.getKey(be.getType());
-		if (key == null)
-			return false;
+        ResourceLocation key = BlockEntityType.getKey(be.getType());
+        if (key == null)
+            return false;
 
-		String namespace = key.getNamespace();
-		return Mods.SOPHISTICATEDSTORAGE.id().equals(namespace)
-				|| Mods.SOPHISTICATEDBACKPACKS.id().equals(namespace);
-	}
+        String namespace = key.getNamespace();
+        return Mods.SOPHISTICATEDSTORAGE.id().equals(namespace)
+                || Mods.SOPHISTICATEDBACKPACKS.id().equals(namespace);
+    }
 
-	@Override
-	public long getSpaceInSlot(IItemHandler inv, int slot) {
-		return ((long) inv.getSlotLimit(slot) * inv.getStackInSlot(slot).getMaxStackSize()) / 64;
-	}
+    @Override
+    public long getSpaceInSlot(IItemHandler inv, int slot) {
+        return ((long) inv.getSlotLimit(slot) * inv.getStackInSlot(slot).getMaxStackSize()) / 64;
+    }
 
 }

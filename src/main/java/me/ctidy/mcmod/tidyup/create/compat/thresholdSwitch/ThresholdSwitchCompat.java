@@ -29,14 +29,14 @@ import net.minecraftforge.items.IItemHandler;
  */
 public interface ThresholdSwitchCompat {
 
-	/**
-	 * Whether apply this compat.
-	 */
-	boolean isFromThisMod(BlockEntity blockEntity);
+    /**
+     * Whether apply this compat.
+     */
+    boolean isFromThisMod(BlockEntity blockEntity);
 
-	/**
-	 * Gets the max size of the slot.
-	 */
-	long getSpaceInSlot(IItemHandler inv, int slot);
+    /**
+     * Gets the max size of the slot.
+     */
+    long getSpaceInSlot(IItemHandler inv, int slot);
 
 }
