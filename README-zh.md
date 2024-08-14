@@ -1,13 +1,23 @@
 # 熊氏补丁包：机械动力 （Tidy UP: Create）
 Tidy 的 Create 及其常见附属 补丁模组，主要涉及最新版本中没有（或尚未发布）的一些修复。
 
+## 关于：机械动力（Create）
+
+机械动力，由 [simibubi](https://github.com/simibubi) 制作，添加了各种新工具，以及围绕建筑、装饰与精巧自动化的新方块。
+
+[github](https://github.com/Creators-of-Create/Create)
+| [curseforge](https://www.curseforge.com/minecraft/mc-mods/create)
+| [modrinth](https://modrinth.com/mod/create)
+
+感谢 [Creators-of-Create](https://github.com/Creators-of-Create) 以及所有贡献者共同开发并维护如此杰出的模组~
+
 ## 功能特性
 
-### # 修复：护目镜悬浮窗上的空格缩进
+### # 修复：护目镜悬浮界面上的空格缩进
 
 **仅客户端**
 
-根据字体的空格宽度调节护目镜悬浮窗上的空格缩进量。如果你使用了与原版空格宽度不相等的字体，护目镜悬浮窗上会有文字错位的 bug。
+根据字体的空格宽度调节护目镜悬浮界面上的空格缩进量。如果你使用了与原版空格宽度不相等的字体，护目镜悬浮界面上会有文字错位的 bug。
 
 在 Create 仓库中已修复，但尚未发布。（[Creators-of-Create/Create#6477](https://github.com/Creators-of-Create/Create/pull/6477)）
 
@@ -15,7 +25,7 @@ Tidy 的 Create 及其常见附属 补丁模组，主要涉及最新版本中没
 
 因此，这个补丁做了 2 件事：
 
-- 修复原生 bug，但 1.18.2 与 Modern UI 共同安装导致悬浮窗抖动的修复未实装
+- 修复原生 bug，但 1.18.2 与 Modern UI 共同安装导致悬浮界面抖动的修复未实装
 - 为常见的附属 mod 做适配，使修复起效
 
 由于技术限制，使用 mixin 时必须提供精确的作用目标。目前已适配如下 mod：

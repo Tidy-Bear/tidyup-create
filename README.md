@@ -1,6 +1,16 @@
 # Tidy UP: Create
 Tidy's patches mod for Create and its common addon mods, mainly involving some fixes not available on the latest release.
 
+## About: Create
+
+Create, made by [simibubi](https://github.com/simibubi), is a mod offering a variety of tools and blocks for Building, Decoration, and Aesthetic Automation.
+
+[github](https://github.com/Creators-of-Create/Create)
+| [curseforge](https://www.curseforge.com/minecraft/mc-mods/create)
+| [modrinth](https://modrinth.com/mod/create)
+
+Thank you to [Creators-of-Create](https://github.com/Creators-of-Create) and all the contributors for developing and maintaining such an amazing mod~
+
 ## Features
 
 ### # Fix: Spacing Indentation on the Goggle Overlay
