@@ -122,3 +122,43 @@ https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff5
 
 https://github.com/Creators-of-Create/Create/issues/6837
 
+
+### # 修复：限制区块加载器护目镜悬浮界面上的区块加载数量
+
+**面向附属 mod “机械动力：末影传输”（Create Ender Transmission）**
+
+[github](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [curseforge](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [modrinth](https://modrinth.com/mod/create-ender-transmission)
+
+**仅客户端**
+
+区块加载器护目镜悬浮界面上的区块加载数量信息不再多于 25。
+没错，区块加载器只能加载 5 * 5 的区块，即便用配置文件调大了速度上限。
+
+**相关链接：**
+
+https://github.com/RuochenFu21/CreateEnderTransmission/issues/18
+
+### # 修复：附属 mod “机械动力：末影传输”（Create Ender Transmission） 的 NPE 问题
+
+**面向附属 mod “机械动力：末影传输”（Create Ender Transmission）**
+
+[github](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [curseforge](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [modrinth](https://modrinth.com/mod/create-ender-transmission)
+
+**双端可选（双端都有效果，但不强制另一端也需要）**
+
+客户端与服务端都存在的严重 NPE （Null Pointer Exception，空指针）问题。
+
+在客户端，当贴着流体传输器放置管道时会导致游戏崩溃。
+
+在服务端，服务器不会加载流体网络的持久性数据。
+
+**相关链接：**
+
+https://github.com/RuochenFu21/CreateEnderTransmission/issues/7
+
+https://github.com/RuochenFu21/CreateEnderTransmission/issues/9
+

@@ -123,3 +123,42 @@ Clear outdated data of Basin at every lazy tick (every 10 ticks) to avoid potent
 
 https://github.com/Creators-of-Create/Create/issues/6837
 
+### # Fix: Limit max chunks on Chunk Loader's goggle overlay
+
+**For addon mod "Create Ender Transmission"**
+
+[github](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [curseforge](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [modrinth](https://modrinth.com/mod/create-ender-transmission)
+
+**Client side only.**
+
+Information on Chunk Loader's goggle overlay will never display chunks number greater than 25.
+Yes, it can only load a maximum of 5 * 5 chunks even if the speed limit is increased by config.
+
+**Related links:**
+
+https://github.com/RuochenFu21/CreateEnderTransmission/issues/18
+
+### # Fix: NPE in addon mod "Create Ender Transmission"
+
+**For addon mod "Create Ender Transmission"**
+
+[github](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [curseforge](https://github.com/RuochenFu21/CreateEnderTransmission/)
+| [modrinth](https://modrinth.com/mod/create-ender-transmission)
+
+**Both side, but not mandatory for the other side.**
+
+A serious NPE (Null Pointer Exception) on both client and server side.
+
+On the client side, it will crash the game when attaching a pipe to a Fluid Transmitter.
+
+On the server side, it will not load persistent data of fluid network when server loaded.
+
+**Related links:**
+
+https://github.com/RuochenFu21/CreateEnderTransmission/issues/7
+
+https://github.com/RuochenFu21/CreateEnderTransmission/issues/9
+

@@ -21,8 +21,9 @@ build
 eclipse
 runs
 mcmodsrepo
-./libs/*-local.jar
-./libs/*-sources.jar
 
-# Files from Forge MDK
-forge*changelog.txt
+# personal use for source attaching to mod dependencies from curseforge / modrinth
+.libsrc
+
+# other local things
+.local

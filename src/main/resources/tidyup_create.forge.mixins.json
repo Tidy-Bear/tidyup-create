@@ -5,11 +5,16 @@
   "package": "me.ctidy.mcmod.tidyup.create.mixin",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
+    "addon.createendertransmission.AbstractMatterTransmitterBlockEntityMixin",
+    "addon.createendertransmission.CommonEventHandlerMixin",
+    "addon.createendertransmission.FluidTransmitterNetworkMixin",
+    "addon.createendertransmission.ItemTransmitterNetworkMixin",
     "basin_large_data.BasinBlockEntityMixin",
     "basin_large_data.BasinRecipeMixin",
     "thresholdSwitch_compat.ThresholdSwitchBlockEntityMixin"
   ],
   "client": [
+    "addon.createendertransmission.LoaderBlockEntityMixin",
     "schematic_better_tooltips.SchematicItemMixin",
     "schematic_preview.SchematicHandlerMixin",
     "space_indents.GoggleOverlayRendererMixin",
