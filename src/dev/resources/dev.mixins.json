@@ -5,6 +5,7 @@
   "package": "me.ctidy.mcmod.tidyup.create.mixin.debug",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
+    "BasinBlockEntityAccessor",
     "compat.railways.RailwaysMixin"
   ],
   "client": [],

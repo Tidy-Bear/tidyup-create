@@ -96,14 +96,30 @@ Now you can see the structure size (x, y, z) of the schematic on its tooltip.
 
 **Server side only.**
 
-Make Threshold Switch take into account slot size limit higher than vanilla when calculating available space in a container.
+Make Threshold Switch take into account slot size limit higher than vanilla when calculating available spaces in a container.
 
 It has been fixed in Create's repo but has not been released yet.
 Main codes come from [Creators-of-Create/Create@d9198f67](https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb) by [zelophed](https://github.com/zelophed).
+
+This mod additionally fixes a bug in the commit where "disabled" slots of (Simple) Compacting Drawer were being counted as available spaces.
+However, similar bug is still here with Storage Controller (Expansion).
+And, available spaces may not be expected if a Threshold Switch pointing at a (Simple) Compacting Drawer has a filter.
+
+**So, still be careful to use Threshold Switch with storage block from other mods.**
 
 **Related links:**
 
 https://github.com/Creators-of-Create/Create/issues/5185
 
 https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb
+
+### # Fix: Continuously growing data of Basin
+
+**Server side only.**
+
+Clear outdated data of Basin at every lazy tick (every 10 ticks) to avoid potential server OOM (out of memory) or player disconnecting by over large NBT.
+
+**Related links:**
+
+https://github.com/Creators-of-Create/Create/issues/6837
 

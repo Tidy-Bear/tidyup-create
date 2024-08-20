@@ -100,9 +100,25 @@ https://github.com/Creators-of-Create/Create/pull/6813
 在 Create 仓库中已修复，但尚未发布。
 核心代码来自 [Creators-of-Create/Create@d9198f67](https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb)，作者 [zelophed](https://github.com/zelophed).
 
+本 mod 还额外修复了原 commit 中将 （简易）压缩抽屉未“启用”的物品槽位计入存量上限 的 bug。
+然而，存储控制器（及拓展器）仍然存在相似 bug，尚未修复。
+并且，对准 （简易）压缩抽屉 的 存量转信器 如果设置了筛选，其存量上限可能仍然和常规思维有所出入。
+
+**因此，将 存量转信器 使用在其它 mod 所添加的存储方块时仍需小心测试。**
+
 **相关链接：**
 
 https://github.com/Creators-of-Create/Create/issues/5185
 
 https://github.com/Creators-of-Create/Create/commit/d9198f678ea499bc14e7af669ff586dcc4afd6bb
+
+### # 修复：工作盆内部数据无限增长
+
+**仅服务端**
+
+在工作盆每次 lazy tick （10 tick 一次）时及时清理过期的内部数据，以避免潜在的服务器 OOM（out of memory，内存溢出），以及大 NBT 导致玩家掉线的问题。
+
+**相关链接：**
+
+https://github.com/Creators-of-Create/Create/issues/6837
 

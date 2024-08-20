@@ -5,6 +5,8 @@
   "package": "me.ctidy.mcmod.tidyup.create.mixin",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
+    "basin_large_data.BasinBlockEntityMixin",
+    "basin_large_data.BasinRecipeMixin",
     "thresholdSwitch_compat.ThresholdSwitchBlockEntityMixin"
   ],
   "client": [
